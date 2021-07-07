@@ -1,11 +1,13 @@
-import { Router } from "express";
-import { getConnection, getCustomRepository, getRepository } from "typeorm";
-
 import "./database";
-import User from "./entities/UserEntity";
+import { Router } from "express";
+import UserController from "./controllers/UserController";
 
 const router = Router();
 
-router.get("/", async (req, res) => {});
+const userController = new UserController();
+
+router.post("/user", userController.createUser);
+router.get("/user", userController.getUsers);
+router.delete("/user", userController.deleteUser);
 
 export default router;

@@ -7,6 +7,10 @@ export class User1625654080752 implements MigrationInterface {
         name: "users",
         columns: [
           {
+            name: "id",
+            type: "varchar",
+          },
+          {
             name: "username",
             type: "varchar",
           },

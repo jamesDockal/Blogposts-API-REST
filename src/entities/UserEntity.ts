@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+// import { hashSync } from "bcrypt";
 
 @Entity("users")
 class User {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
