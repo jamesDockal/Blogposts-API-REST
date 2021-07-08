@@ -5,10 +5,28 @@ export default async function verifyToken(
   res: Response,
   next: NextFunction
 ) {
-  const bearerHeader = req.headers["authorization"];
+  console.log("headers", req.headers);
 
+  const bearerHeader = req.headers["authorization"];
   if (!bearerHeader) {
     return res.status(403).json({ error: "No token provided" });
   }
+
+  const splitedHeader = bearerHeader.split(" ");
+
+  if (splitedHeader[0] !== "Bearer") {
+    return res
+      .status(400)
+      .json({ error: "Token bad formated, it should be 'Bearer ${token}" });
+  }
+
   next();
 }
+
+//  console.log("splitedHeader", splitedHeader.length);
+
+//  if (splitedHeader.length !== 2) {
+//    return res
+//      .status(403)
+//      .json({ error: "Token bad formated, it should be 'Bearer ${token}" });
+//  }
