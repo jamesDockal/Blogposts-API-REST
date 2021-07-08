@@ -1,21 +1,15 @@
 import { Request, Response } from "express";
-import { getCustomRepository, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 import User from "../entities/UserEntity";
 import hashPassword from "../utils/hashPassword";
 
 class UserController {
   async createUser(req: Request, res: Response) {
+    const { username, password } = req.body;
     const userRepository = getRepository(User);
 
-    const { username, password } = req.body;
-
     const existUser = await userRepository.findOne({ username });
-
-    console.log("existuser", existUser);
-
     if (existUser) {
-      console.log("IF existuser");
-
       return res.status(400).send({ error: "Username alredy in use" });
     }
 

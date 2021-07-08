@@ -1,27 +1,24 @@
+// library to make the request to the API
 import request from "supertest";
 
+// URL of the api
 const server = request("http://localhost:3000");
-
-class MockUser {
-  username: string;
-  password: string;
-  constructor() {
-    this.username = "any_username";
-    this.password = "any_password";
-  }
-}
 
 describe("users", () => {
   it("should validate if the password was NOT provided", async () => {
-    const user = { username: "testeusername" };
+    const user = { username: "teste_username" };
 
+    // it gonna make the request, but gonna return a error on the UserMiddleware passedCrendentials
+    // because no password passed was provided
     const response = await server.post("/user").send(user);
 
     expect(response.status).toBe(400);
   });
   it("should validate if the username was NOT provided", async () => {
-    const user = { password: "testepassword" };
+    const user = { password: "teste_password" };
 
+    // it gonna make the request, but gonna return a error, status 400, on the UserMiddleware passedCrendentials
+    // because no email was provided
     const response = await server.post("/user").send(user);
 
     expect(response.status).toBe(400);
@@ -34,6 +31,7 @@ describe("users", () => {
       password: "anypassword",
     };
 
+    // it gonna return a error, status 400, becuase the user alredy exist on the database
     const response = await server.post("/user").send(user);
 
     expect(response.status).toBe(400);
