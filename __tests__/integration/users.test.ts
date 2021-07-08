@@ -66,22 +66,4 @@ describe("login", () => {
 
     expect(response.status).toBe(400);
   });
-  it("should return a error if no token on header was provided", async () => {
-    const user = new MockUser();
-
-    const response = await server.post("/user/login").send(user);
-
-    expect(response.status).toBe(403);
-  });
-  it("should return a error if the token does not have the word 'Bearer'", async () => {
-    const user = new MockUser();
-
-    const response = await server
-      .post("/user/login")
-      .send(user)
-      .set({ authorization: "teste" });
-
-    expect(response.status).toBe(400);
-  });
 });
-// Authorization;
