@@ -55,12 +55,17 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
 
 > > ### Blogpost
 > >
-> > POST `user/login` <br>
-> > Login user
-> > | Object Field | Type | Required |
-> > |--------------------|--------|-------- |
-> > | `username` | string |true |
-> > | `password` | string |true |
+> > GET `blogpost/` <br>
+> > Show all posts
+> >
+> > POST `blogpost/create` <br>
+> > Create a new post <br>
+> > But the user must be logged in
+> > | Object Field | Type | Required |Description |
+> > |--------------------|--------|-------- |-------- |
+> > | `title` | string |true | The title of the post
+> > | `content` | string |true |The conent of the post
+> > | `slug` | string |true |The slug of the post
 > >
 > > ##### Example:
 > >
