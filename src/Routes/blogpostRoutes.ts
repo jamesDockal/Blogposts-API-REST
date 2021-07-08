@@ -12,6 +12,7 @@ BlogRoutes.get("/", blogpostController.getAllBlogpost);
 BlogRoutes.post(
   "/create",
   blogpostMiddleware.passedCrendentials,
+  blogpostMiddleware.valiedUserId,
   blogpostController.createPost
 );
 

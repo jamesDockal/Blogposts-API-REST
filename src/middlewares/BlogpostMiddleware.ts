@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import userExist from "../utils/userExist";
 
 class BlogpostMiddleware {
   passedCrendentials(req: Request, res: Response, next: NextFunction) {
@@ -14,10 +15,18 @@ class BlogpostMiddleware {
       return res.status(400).json({ error: "You need provide a slug!" });
     }
     if (!created_by) {
-      return res.status(400).json({ error: "You need provide the user_id!" });
+      return res
+        .status(400)
+        .json({ error: "You need provide the created_by!" });
     }
 
     return next();
+  }
+
+  async valiedUserId(req: Request, res: Response, next: NextFunction) {
+    const { created_by } = req.body;
+
+    next();
   }
 }
 

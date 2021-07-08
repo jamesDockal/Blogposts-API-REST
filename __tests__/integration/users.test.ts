@@ -149,4 +149,16 @@ describe("blogpost", () => {
 
     expect(response.status).toBe(400);
   });
+  it("should not see if it's a valid user_id", async () => {
+    const blogpost = {
+      title: "teste",
+      content: "teste",
+      slug: "teste",
+      created_by: "invalid user_id",
+    };
+
+    const response = await server.post("/blogpost/create").send(blogpost);
+
+    expect(response.status).toBe(406);
+  });
 });
