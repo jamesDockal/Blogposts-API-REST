@@ -16,9 +16,12 @@ class MockUser {
 class adminUser {
   username: string;
   password: string;
+  token: string;
   constructor() {
     this.username = "admin";
     this.password = "admin";
+    this.token =
+      "eyJhbGciOiJIUzI1NiJ9.MTliMDRjNDgtNzI2MC00ZjVjLTg1ZDAtZmMzMmVlNTQ4M2M2.GgaAMTpcS7Uj1X3plAx1W3SIj__fkL5zXXc4PeEeSTk";
   }
 }
 
@@ -104,5 +107,36 @@ describe("login", () => {
     const response = await server.post("/user/login").send(user);
 
     expect(response.status).toBe(401);
+  });
+});
+
+describe("Loged routes", () => {
+  it("should return a error if no token on header was provided", async () => {
+    const user = new MockUser();
+
+    const response = await server.post("/user/test").send(user);
+
+    expect(response.status).toBe(401);
+  });
+
+  it("should return a error if the token does not have the word 'Bearer'", async () => {
+    const user = new MockUser();
+
+    const response = await server
+      .post("/user/test")
+      .send(user)
+      .set({ authorization: "teste" });
+
+    expect(response.status).toBe(400);
+  });
+  it("should see return ok with pass a valid token", async () => {
+    const user = new adminUser();
+
+    const response = await server
+      .post("/user/test")
+      .send(user)
+      .set({ authorization: `Bearer ${user.token}` });
+
+    expect(response.status).toBe(200);
   });
 });

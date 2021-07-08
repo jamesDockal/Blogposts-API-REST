@@ -32,4 +32,11 @@ router.post(
   userController.login
 );
 
+router.post(
+  "/user/test",
+  userValidation.passedCrendentials,
+  verifyToken,
+  userController.teste
+);
+
 export default router;

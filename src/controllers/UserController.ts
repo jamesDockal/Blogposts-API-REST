@@ -79,6 +79,10 @@ class UserController {
 
     res.status(200).json({ token });
   }
+
+  async teste(req: Request, res: Response) {
+    res.status(200).send("ok");
+  }
 }
 
 export default UserController;
