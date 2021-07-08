@@ -4,35 +4,16 @@ import User from "../entities/UserEntity";
 
 class UserController {
   async createUser(req: Request, res: Response) {
-    const userRepository = await getRepository(User);
+    const { username, password } = req.body;
 
-    const user = await userRepository.create({
-      username: "teste",
-      password_hash: "teste",
-    });
+    if (!username) {
+      return res.status(400).json({ error: "No username provided!" });
+    }
+    if (!password) {
+      return res.status(400).json({ error: "No password provided!" });
+    }
 
-    userRepository.save(user);
-
-    return res.json(user);
-  }
-
-  async getUsers(req: Request, res: Response) {
-    const userRepository = await getRepository(User);
-
-    const users = await userRepository.find();
-
-    return res.json({ users });
-  }
-
-  async deleteUser(req: Request, res: Response) {
-    const userRepository = await getRepository(User);
-
-    const user: any = await userRepository.findOne({ username: "teste" });
-    await userRepository.delete(user);
-
-    const users = await userRepository.find();
-
-    return res.json({ users });
+    return res.send("ok").status(200);
   }
 }
 
