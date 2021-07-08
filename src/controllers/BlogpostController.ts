@@ -13,11 +13,10 @@ class BlogpostController {
   }
 
   async createPost(req: Request, res: Response) {
-    const { title, content, slug, created_by } = req.body;
+    const { title, content, slug } = req.body;
+    const created_by = res.locals.jwt_user_id;
 
-    // const { user } = res.locals;
-
-    console.log("locals", res.locals);
+    // await
 
     return res.send("ok");
   }

@@ -45,7 +45,13 @@ class UserController {
     const token = await sign(user.id, process.env.SECRET_KEY);
 
     // return status 200 as everything worked
-    return res.status(200).json({ user, token });
+    return res.status(200).json({
+      user: {
+        id: user.id,
+        username: user.username,
+      },
+      token,
+    });
   }
   // function to get all users | get (users/)
   async getAllUsers(req: Request, res: Response) {

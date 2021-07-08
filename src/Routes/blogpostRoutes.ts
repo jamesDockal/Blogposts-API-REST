@@ -1,6 +1,6 @@
 import { Router } from "express";
-import BlogpostController from "../controllers/BlogpostController";
-import BlogpostMiddleware from "../middlewares/BlogpostMiddleware";
+import BlogpostController from "../controllers/blogPostController";
+import BlogpostMiddleware from "../middlewares/blogPostMiddleware";
 import verifyToken from "../middlewares/JWTMiddleware";
 
 const BlogRoutes = Router();
@@ -14,8 +14,6 @@ BlogRoutes.post(
   "/create",
   verifyToken,
   blogpostMiddleware.passedCrendentials,
-  blogpostMiddleware.valiedUserId,
-  blogpostMiddleware.sameUserCreatingPostThatIsLoged,
   blogpostController.createPost
 );
 
