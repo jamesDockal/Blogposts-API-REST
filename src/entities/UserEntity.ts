@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
-import { hashSync } from "bcrypt";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
+// make a connection of the user table and the application passing each column
 
 @Entity("users")
 class User {
