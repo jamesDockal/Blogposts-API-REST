@@ -10,8 +10,13 @@ class UserController {
     const { username, password } = req.body;
 
     const existUser = await userRepository.findOne({ username });
+
+    console.log("existuser", existUser);
+
     if (existUser) {
-      return res.send({ error: "Username alredy in use" }).status(400);
+      console.log("IF existuser");
+
+      return res.status(400).send({ error: "Username alredy in use" });
     }
 
     const password_hash = await hashPassword(password);
