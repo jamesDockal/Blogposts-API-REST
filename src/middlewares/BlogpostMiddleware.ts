@@ -36,7 +36,20 @@ class BlogpostMiddleware {
     }
   }
 
-  // async sameUserCreatingPostThatIsLoged
+  async sameUserCreatingPostThatIsLoged(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const { jwt_user_id, user } = res.locals;
+
+    if (jwt_user_id !== user.id) {
+      return res
+        .status(401)
+        .json({ error: "You can only created your own post" });
+    }
+    next();
+  }
 }
 
 export default BlogpostMiddleware;

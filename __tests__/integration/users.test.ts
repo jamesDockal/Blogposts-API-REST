@@ -159,7 +159,7 @@ describe("blogpost", () => {
 
     expect(response.status).toBe(400);
   });
-  it("should not created if was given a invalid created_by", async () => {
+  it("should not created the post if was given a invalid created_by", async () => {
     const adminUser = new AdminUser();
 
     const blogpost = {
@@ -179,5 +179,44 @@ describe("blogpost", () => {
       .send(blogpost);
 
     expect(response.status).toBe(406);
+  });
+  it("should not created the post if the user that is loged is not the same that is creating the post", async () => {
+    // to make sure that user that is logged is the same that is trying to create the post
+    // we create a mock user and create a post by his id
+    // after that we logged with other user
+    // (in this case was the admin one, the default user)
+
+    // creating a new user and get his id
+    const mockuser = new MockUser();
+    const createdMockUser = await server.post("/user/register").send(mockuser);
+    const mockuser_id = createdMockUser.body.user.id;
+
+    // logging the admin user and getting his token
+    const adminUser = new AdminUser();
+    const createdAdminUser = await server.post("/user/login").send(adminUser);
+    const admin_token = createdAdminUser.body.token;
+
+    // creating the blogpost if the created user (mockUser)
+    const blogpost = {
+      title: "teste",
+      content: "teste",
+      slug: "teste",
+      created_by: mockuser_id,
+    };
+
+    // passing the admin token to get him logged
+    const response = await server
+      .post("/blogpost/create")
+      .set({
+        authorization: `Bearer ${admin_token}`,
+      })
+      .send(blogpost);
+
+    //delete the mock user
+    await server.delete(`/user/${mockuser_id}`);
+
+    // it gonna return authorizated because the user that gonna create a post
+    // is different from the user that is logged
+    expect(response.status).toBe(401);
   });
 });

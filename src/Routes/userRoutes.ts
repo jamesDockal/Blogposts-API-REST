@@ -3,6 +3,8 @@ import { Router } from "express";
 import UserValidation from "../middlewares/UserMiddleware";
 import UserController from "../controllers/UserController";
 import verifyToken from "../middlewares/JWTMiddleware";
+import { getRepository } from "typeorm";
+import User from "../entities/UserEntity";
 
 const UserRoutes = Router();
 
@@ -35,6 +37,15 @@ UserRoutes.post(
   userController.teste
 );
 
-// class UserRoutes {}
+// delete an user with the passed id on the url
+UserRoutes.delete("/:id", async (req, res) => {
+  const userRepository = await getRepository(User);
+
+  const user: any = await userRepository.findOne({
+    id: req.params.id,
+  });
+  await userRepository.delete(user);
+  res.send("user deleted");
+});
 
 export default UserRoutes;

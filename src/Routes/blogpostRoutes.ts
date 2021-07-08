@@ -15,7 +15,7 @@ BlogRoutes.post(
   verifyToken,
   blogpostMiddleware.passedCrendentials,
   blogpostMiddleware.valiedUserId,
-  // blogpostMiddleware.sameUserCreatingPostThatIsLoged,
+  blogpostMiddleware.sameUserCreatingPostThatIsLoged,
   blogpostController.createPost
 );
 
