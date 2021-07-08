@@ -12,33 +12,36 @@ export class blogposts1625726254000 implements MigrationInterface {
             isPrimary: true,
             isNullable: false,
           },
+
           {
             name: "title",
             type: "varchar",
-            isNullable: true,
+            isNullable: false,
           },
           {
             name: "content",
             type: "varchar",
-            isNullable: true,
+            isNullable: false,
           },
           {
             name: "slug",
             type: "varchar",
-            isNullable: true,
+            isNullable: false,
           },
           {
             name: "created_by",
             type: "varchar",
-            isNullable: true,
+            isNullable: false,
           },
         ],
         foreignKeys: [
           {
-            name: "FK_created_by_user",
+            name: "FK_cretedBy_user",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
             columnNames: ["created_by"],
+            onDelete: "SET NULL",
+            onUpdate: "SET NULL",
           },
         ],
       })

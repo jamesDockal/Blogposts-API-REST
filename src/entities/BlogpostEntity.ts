@@ -3,11 +3,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import User from "./UserEntity";
 
-@Entity("blogpost")
+@Entity("blogposts")
 class Blogpost {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -21,9 +22,12 @@ class Blogpost {
   @Column()
   slug: string;
 
+  @Column()
+  created_by: string;
+
   @JoinColumn({ name: "created_by" })
   @ManyToOne(() => User)
-  created_by: User;
+  createdBy: User;
 }
 
 export default Blogpost;

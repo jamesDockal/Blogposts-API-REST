@@ -140,3 +140,13 @@ describe("Loged routes", () => {
     expect(response.status).toBe(200);
   });
 });
+
+describe("blogpost", () => {
+  it("should not pass with lack of information", async () => {
+    const blogpost = {};
+
+    const response = await server.post("/blogpost/create").send(blogpost);
+
+    expect(response.status).toBe(400);
+  });
+});

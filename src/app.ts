@@ -4,7 +4,7 @@ import "./database";
 
 // routes file
 import UserRoutes from "./Routes/userRoutes";
-import BlogRoutes from "./Routes/postRoutes";
+import BlogRoutes from "./Routes/blogpostRoutes";
 
 const app = express();
 

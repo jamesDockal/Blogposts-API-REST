@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import UserValidation from "../middlewares/UserValidation";
+import UserValidation from "../middlewares/UserMiddleware";
 import UserController from "../controllers/UserController";
 import verifyToken from "../middlewares/JWTMiddleware";
 
