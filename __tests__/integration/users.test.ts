@@ -146,7 +146,7 @@ describe("Loged routes", () => {
 });
 
 describe("blogpost", () => {
-  it("should not created if the user is not logged", async () => {
+  it("should not create if the user is not logged", async () => {
     // to see if the user is logged, there must be the jwt on the header
     const blogpost = {};
 
@@ -159,7 +159,7 @@ describe("blogpost", () => {
 
     expect(response.status).toBe(400);
   });
-  it("should not created if there are lack of information", async () => {
+  it("should not create if there are lack of information", async () => {
     const adminUser = new AdminUser();
     const blogpost = {};
 
@@ -174,5 +174,28 @@ describe("blogpost", () => {
       .send(blogpost);
 
     expect(response.status).toBe(400);
+  });
+  it("should create the post if the information were paseed and the user is logged", async () => {
+    // to see if the user is logged, there must be the jwt on the header
+    const adminUser = new AdminUser();
+
+    const loggedUser = await server.post("/user/login").send(adminUser);
+    const { token, id } = loggedUser.body;
+
+    const blogpost = {
+      title: "teste",
+      content: "teste",
+      slug: "teste",
+      created_by: id,
+    };
+
+    const response = await server
+      .post("/blogpost/create")
+      .set({
+        authorization: `Bearer ${token}`,
+      })
+      .send(blogpost);
+
+    expect(response.status).toBe(200);
   });
 });

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import Blogpost from "../entities/BlogpostEntity";
-import User from "../entities/UserEntity";
 
 class BlogpostController {
   async getAllBlogpost(req: Request, res: Response) {
@@ -16,9 +15,18 @@ class BlogpostController {
     const { title, content, slug } = req.body;
     const created_by = res.locals.jwt_user_id;
 
-    // await
+    const blogpostRepository = getRepository(Blogpost);
 
-    return res.send("ok");
+    const newPost = await blogpostRepository.create({
+      title,
+      content,
+      slug,
+      created_by,
+    });
+
+    await blogpostRepository.save(newPost);
+
+    return res.json({ post: newPost });
   }
 }
 

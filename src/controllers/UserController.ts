@@ -83,11 +83,10 @@ class UserController {
 
     const token = await sign(user.id, process.env.SECRET_KEY);
 
-    res.status(200).json({ token });
+    res.status(200).json({ token, id: user.id });
   }
-
-  async teste(req: Request, res: Response) {
-    res.status(200).send("ok");
+  teste(req: Request, res: Response) {
+    return res.send("ok");
   }
 }
 
