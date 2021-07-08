@@ -14,7 +14,7 @@ const userValidation = new UserValidation();
 // controllers of the user's routes
 const userController = new UserController();
 
-// route that gonna send all the users of the app
+// route that gonna get all the users of the app
 UserRoutes.get("/", userController.getAllUsers);
 
 // route to create a new user
@@ -24,17 +24,18 @@ UserRoutes.post(
   userController.createUser
 );
 
-UserRoutes.post(
-  "/login",
-  userValidation.passedCrendentials,
-  userController.login
-);
-
+// a route to test the token to loggin
 UserRoutes.post(
   "/private-route-test",
   userValidation.passedCrendentials,
   verifyToken,
   userController.teste
+);
+
+UserRoutes.post(
+  "/login",
+  userValidation.passedCrendentials,
+  userController.login
 );
 
 // delete an user with the passed id on the url

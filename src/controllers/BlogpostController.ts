@@ -12,6 +12,7 @@ class BlogpostController {
   }
 
   async createPost(req: Request, res: Response) {
+    // get the necessary information to create a post
     const { title, content, slug } = req.body;
     const created_by = res.locals.jwt_user_id;
 
