@@ -11,15 +11,19 @@ export class User1625654080752 implements MigrationInterface {
           {
             name: "id",
             type: "varchar",
+            isPrimary: true,
+            isNullable: false,
           },
           {
             name: "username",
             type: "varchar",
             isUnique: true,
+            isNullable: true,
           },
           {
             name: "password_hash",
             type: "varchar",
+            isNullable: true,
           },
         ],
       })

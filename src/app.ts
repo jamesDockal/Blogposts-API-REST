@@ -4,6 +4,7 @@ import "./database";
 
 // routes file
 import UserRoutes from "./Routes/userRoutes";
+import BlogRoutes from "./Routes/postRoutes";
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.use(express.json());
 
 // user the routes
 app.use("/user", UserRoutes);
+app.use("/blogpost", BlogRoutes);
 
 export default app;

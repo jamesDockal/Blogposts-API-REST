@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import UserValidation from "../middlewares/UserMiddleware";
+import UserValidation from "../middlewares/UserValidation";
 import UserController from "../controllers/UserController";
 import verifyToken from "../middlewares/JWTMiddleware";
 
@@ -12,16 +12,10 @@ const userValidation = new UserValidation();
 // controllers of the user's routes
 const userController = new UserController();
 
-UserRoutes.post(
-  "/register",
-  userValidation.passedCrendentials,
-  userController.createUser
-);
-
 // route that gonna send all the users of the app
-UserRoutes.get("/user", userController.getAllUsers);
+UserRoutes.get("/", userController.getAllUsers);
 
-// route that gonna create a new user
+// route to create a new user
 UserRoutes.post(
   "/register",
   userValidation.passedCrendentials,
