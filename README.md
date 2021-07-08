@@ -22,7 +22,7 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
 > >
 > > GET `user/` <br>
 > > Get all the users
->
+> >
 > > POST `user/register` <br>
 > > Register user passing JSON on body with the following information
 > > | Object Field | Type | Required |
