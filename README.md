@@ -1,7 +1,7 @@
 # Blogposts-API-REST
 
-An REST API to create blog posts <br>
-Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
+An REST API to create blog posts. <br>
+Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 
 ## Getting Started
 
@@ -20,13 +20,11 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
 
 > > ### User
 > >
-> > #### GET `user/` <br>
+> > GET `user/` <br>
+> > Get all the users.
 > >
-> > Get all the users
->
-> > #### POST `user/register` <br>
-> >
-> > Register user passing JSON on body with the following information
+> > POST `user/register` <br>
+> > Register user passing JSON on body with the following information.
 > > | Object Field | Type | Required |
 > > |--------------------|--------|-------- |
 > > | `username` | string |true |
@@ -54,43 +52,17 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
 > >  }
 > > }
 > > ```
-> >
-> > #### POST `user/login` <br>
-> >
-> > login user passing JSON on body with the following information
-> > | Object Field | Type | Required |
-> > |--------------------|--------|-------- |
-> > | `username` | string |true |
-> > | `password` | string |true |
-> >
-> > ##### Example:
-> >
-> > ```json
-> > {
-> >   "username": "James",
-> >   "password": "hard_password.com"
-> > }
-> > ```
-> >
-> > ##### Response:
-> >
-> > ```json
-> > {
-> > "token": {
-> >   "eyJhbGciOiJIUzI1NiJ9.MzUwMTE5YzItMzFkYy00YTUzLWExNjYtYTk2YWQ1NWEzOGFj.W_TBtC5gRY6hssrK6JGHRKr3ETzFXQDctXVZVPOuPjY"
-> >  },
-> >  "id":"350119c2-31dc-4a53-a166-a96ad55a38ac",
-> > }
-> > ```
 
 > > ### Blogpost
 > >
 > > GET `blogpost/` <br>
-> > Show all posts
+> > Show all posts.
 > >
 > > POST `blogpost/create` <br>
-> > Create a new post <br>
-> > But the user must be logged in
+> > Create a new post. <br>
+> > But the user `must be logged in`. <br>
+> > The user must use an `authorization` header with value: `"Bearer {token}"`.<br>
+> > The token you get in the route `user/login`.
 > > | Object Field | Type | Required |Description |
 > > |--------------------|--------|-------- |-------- |
 > > | `title` | string |true | The title of the post
@@ -101,8 +73,9 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
 > >
 > > ```json
 > > {
-> >   "username": "James",
-> >   "password": "hard_password.com"
+> >   "title": "React, getting started!",
+> >   "content": "A introduce to the front-end framework React.js",
+> >   "slug": "React.js"
 > > }
 > > ```
 > >
@@ -110,8 +83,12 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
 > >
 > > ```json
 > > {
-> >   "token": {
-> >     "eyJhbGciOiJIUzI1NiJ9.MzUwMTE5YzItMzFkYy00YTUzLWExNjYtYTk2YWQ1NWEzOGFj.W_TBtC5gRY6hssrK6JGHRKr3ETzFXQDctXVZVPOuPjY"
+> >   "post": {
+> >     "title": "React, getting started!",
+> >     "content": "A introduce to the front-end framework > > React.js",
+> >     "slug": "React.js",
+> >     "created_by": "c1fee994-4969-4d31-9649-705748850364",
+> >     "id": "88270e66-a244-433d-9605-a5639c3b57ec"
 > >   }
 > > }
 > > ```
