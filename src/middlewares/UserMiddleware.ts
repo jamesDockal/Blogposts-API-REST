@@ -11,7 +11,6 @@ class UserMiddleware {
     if (!password) {
       return res.status(400).json({ error: "No password provided!" });
     }
-
     return next();
   }
 }

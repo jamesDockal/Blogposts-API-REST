@@ -3,6 +3,7 @@ import { Router } from "express";
 
 // file that does what the routes need to do
 import UserController from "./controllers/UserController";
+import verifyToken from "./middlewares/JWTMiddleware";
 
 // middlewares
 import UserValidation from "./middlewares/UserMiddleware";
@@ -28,6 +29,7 @@ router.post(
 router.post(
   "/user/login",
   userValidation.passedCrendentials,
+  verifyToken,
   userController.login
 );
 

@@ -58,7 +58,9 @@ class UserController {
     return res.status(200).json({ users });
   }
 
-  async login(req: Request, res: Response) {}
+  async login(req: Request, res: Response) {
+    res.send("ok");
+  }
 }
 
 export default UserController;
