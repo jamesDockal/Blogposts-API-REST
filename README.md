@@ -1,6 +1,6 @@
 # Blogposts-API-REST
 
-An REST API to create blog posts
+An REST API to create blog posts.
 Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
 
 ## Getting Started
