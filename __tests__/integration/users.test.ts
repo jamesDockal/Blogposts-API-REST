@@ -14,7 +14,7 @@ class MockUser {
 }
 
 describe("Register", () => {
-  it("should validate if the password was NOT provided", async () => {
+  it("should see if the password was NOT provided", async () => {
     const user = { username: "teste_username" };
 
     // it gonna make the request, but gonna return a error on the UserMiddleware passedCrendentials
@@ -23,7 +23,7 @@ describe("Register", () => {
 
     expect(response.status).toBe(400);
   });
-  it("should validate if the username was NOT provided", async () => {
+  it("should see if the username was NOT provided", async () => {
     const user = { password: "teste_password" };
 
     // it gonna make the request, but gonna return a error, status 400, on the UserMiddleware passedCrendentials
@@ -48,7 +48,7 @@ describe("Register", () => {
 });
 
 describe("login", () => {
-  it("should validate if the password was NOT provided", async () => {
+  it("should see if the password was NOT provided", async () => {
     const user = { username: "teste_username" };
 
     // it gonna make the request, but gonna return a error on the UserMiddleware passedCrendentials
@@ -57,7 +57,7 @@ describe("login", () => {
 
     expect(response.status).toBe(400);
   });
-  it("should validate if the username was NOT provided", async () => {
+  it("should see if the username was NOT provided", async () => {
     const user = { password: "teste_password" };
 
     // it gonna make the request, but gonna return a error, status 400, on the UserMiddleware passedCrendentials
@@ -65,5 +65,25 @@ describe("login", () => {
     const response = await server.post("/user/login").send(user);
 
     expect(response.status).toBe(400);
+  });
+  it("should see if the user NOT exists", async () => {
+    const user = {
+      username: "username_not_cadastred",
+      password: "any_password",
+    };
+
+    const response = await server.post("/user/login").send(user);
+
+    expect(response.status).toBe(400);
+  });
+  it("should see if the user alredy exists", async () => {
+    const user = {
+      username: "admin",
+      password: "admin",
+    };
+
+    const response = await server.post("/user/login").send(user);
+
+    expect(response.status).toBe(200);
   });
 });

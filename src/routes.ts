@@ -29,7 +29,6 @@ router.post(
 router.post(
   "/user/login",
   userValidation.passedCrendentials,
-  verifyToken,
   userController.login
 );
 

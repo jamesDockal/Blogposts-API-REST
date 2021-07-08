@@ -25,6 +25,7 @@ export default async function verifyToken(
       .status(400)
       .json({ error: "Token bad formated, it should be 'Bearer ${token}" });
   }
+
   next();
 }
 

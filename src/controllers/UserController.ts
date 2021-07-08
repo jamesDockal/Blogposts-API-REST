@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import User from "../entities/UserEntity";
-import existUsers from "../utils/existUser";
+import usernameInUse from "../utils/usernameInUse";
 import hashPassword from "../utils/hashPassword";
 import { sign } from "jsonwebtoken";
+import userExists from "../utils/userExists";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -23,7 +24,7 @@ class UserController {
 
     // try catch to see if the username alredy exists on the database
     try {
-      await existUsers(username);
+      await usernameInUse(username);
     } catch (e) {
       return res.status(400).json({ error: e.message });
     }
@@ -59,7 +60,14 @@ class UserController {
   }
 
   async login(req: Request, res: Response) {
-    res.send("ok");
+    const { username, password } = req.body;
+
+    const user = await getRepository(User).findOne({ username });
+    if (!user) {
+      return res.status(400).json({ error: "User not found" });
+    }
+
+    res.status(200).send("teste");
   }
 }
 
