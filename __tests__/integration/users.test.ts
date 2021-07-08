@@ -4,13 +4,13 @@ import request from "supertest";
 // URL of the api
 const server = request("http://localhost:3000");
 
-describe("users", () => {
+describe("Register", () => {
   it("should validate if the password was NOT provided", async () => {
     const user = { username: "teste_username" };
 
     // it gonna make the request, but gonna return a error on the UserMiddleware passedCrendentials
     // because no password passed was provided
-    const response = await server.post("/user").send(user);
+    const response = await server.post("/user/register").send(user);
 
     expect(response.status).toBe(400);
   });
@@ -19,7 +19,7 @@ describe("users", () => {
 
     // it gonna make the request, but gonna return a error, status 400, on the UserMiddleware passedCrendentials
     // because no email was provided
-    const response = await server.post("/user").send(user);
+    const response = await server.post("/user/register").send(user);
 
     expect(response.status).toBe(400);
   });
@@ -32,7 +32,7 @@ describe("users", () => {
     };
 
     // it gonna return a error, status 400, becuase the user alredy exist on the database
-    const response = await server.post("/user").send(user);
+    const response = await server.post("/user/register").send(user);
 
     expect(response.status).toBe(400);
   });

@@ -3,12 +3,16 @@ import { getRepository } from "typeorm";
 import User from "../entities/UserEntity";
 import existUsers from "../utils/existUser";
 import hashPassword from "../utils/hashPassword";
+import { sign } from "jsonwebtoken";
+
+import dotenv from "dotenv";
+dotenv.config();
 
 class UserController {
   // all user routes are using the middleware passedCrendentials, UserMiddleware
   // that sees if the username and password were sended
 
-  // function to create a new user | post (users/)
+  // function to create a new user | post (users/register)
   async createUser(req: Request, res: Response) {
     // get the data of the body
     const { username, password } = req.body;
@@ -36,8 +40,10 @@ class UserController {
     // save the user in the databse
     await userRepository.save(user);
 
+    const token = await sign(user.id, process.env.SECRET_KEY);
+
     // return status 200 as everything worked
-    return res.send(user).status(200);
+    return res.status(200).json({ user, token });
   }
   // function to get all users | get (users/)
   async getAllUsers(req: Request, res: Response) {
@@ -51,6 +57,8 @@ class UserController {
     // return status 200 as everything worked
     return res.status(200).json({ users });
   }
+
+  async login(req: Request, res: Response) {}
 }
 
 export default UserController;

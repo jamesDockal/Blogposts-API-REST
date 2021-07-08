@@ -20,9 +20,15 @@ router.get("/user", userController.getAllUsers);
 
 // route that gonna create a new user
 router.post(
-  "/user",
+  "/user/register",
   userValidation.passedCrendentials,
   userController.createUser
+);
+
+router.post(
+  "/user/login",
+  userValidation.passedCrendentials,
+  userController.login
 );
 
 export default router;
