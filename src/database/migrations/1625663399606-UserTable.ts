@@ -13,6 +13,7 @@ export class User1625654080752 implements MigrationInterface {
           {
             name: "username",
             type: "varchar",
+            isUnique: true,
           },
           {
             name: "password_hash",

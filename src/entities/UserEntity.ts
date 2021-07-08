@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-// import { hashSync } from "bcrypt";
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { hashSync } from "bcrypt";
 
 @Entity("users")
 class User {

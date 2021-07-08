@@ -10,6 +10,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", ".husky/UserController.ts"],
   "exclude": ["node_modules"]
 }
