@@ -13,6 +13,15 @@ class MockUser {
   }
 }
 
+class adminUser {
+  username: string;
+  password: string;
+  constructor() {
+    this.username = "admin";
+    this.password = "admin";
+  }
+}
+
 describe("Register", () => {
   it("should see if the password was NOT provided", async () => {
     const user = { username: "teste_username" };
@@ -85,5 +94,15 @@ describe("login", () => {
     const response = await server.post("/user/login").send(user);
 
     expect(response.status).toBe(200);
+  });
+  it("should to validate a wrong password", async () => {
+    const user = {
+      username: "admin",
+      password: "wrong_password",
+    };
+
+    const response = await server.post("/user/login").send(user);
+
+    expect(response.status).toBe(401);
   });
 });

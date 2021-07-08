@@ -4,7 +4,8 @@ import User from "../entities/UserEntity";
 import usernameInUse from "../utils/usernameInUse";
 import hashPassword from "../utils/hashPassword";
 import { sign } from "jsonwebtoken";
-import userExists from "../utils/userExists";
+
+import { compare } from "bcrypt";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -63,8 +64,15 @@ class UserController {
     const { username, password } = req.body;
 
     const user = await getRepository(User).findOne({ username });
+    console.log("user", user);
+
     if (!user) {
       return res.status(400).json({ error: "User not found" });
+    }
+
+    const rightPassword = await compare(password, user.password_hash);
+    if (!rightPassword) {
+      return res.status(401).json({ error: "Invalid password" });
     }
 
     res.status(200).send("teste");

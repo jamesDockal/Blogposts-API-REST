@@ -1,5 +1,6 @@
 import { getRepository, MigrationInterface, QueryRunner } from "typeorm";
 import User from "../../entities/UserEntity";
+import hashPassword from "../../utils/hashPassword";
 
 export class admUser1625663460313 implements MigrationInterface {
   // create an default user
@@ -9,7 +10,7 @@ export class admUser1625663460313 implements MigrationInterface {
 
     const user = await userRepository.create({
       username: "admin",
-      password_hash: "admin",
+      password_hash: await hashPassword("admin"),
     });
 
     userRepository.save(user);
