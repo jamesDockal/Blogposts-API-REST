@@ -19,4 +19,11 @@ describe("users", () => {
 
     expect(response.status).toBe(200);
   });
+  it("should validad if the username was NOT passed", async () => {
+    const user = { password: "testepassword" };
+
+    const response = await server.post("/user").send(user);
+
+    expect(response.status).toBe(400);
+  });
 });
