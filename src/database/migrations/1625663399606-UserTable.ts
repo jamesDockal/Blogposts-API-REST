@@ -1,6 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class User1625654080752 implements MigrationInterface {
+  // create the users table in a sqlite database
+
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.createTable(
       new Table({
@@ -25,6 +27,7 @@ export class User1625654080752 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    // drop the users table
     queryRunner.dropTable("users");
   }
 }
