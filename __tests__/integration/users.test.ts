@@ -1,8 +1,11 @@
 // library to make the request to the API
 import request from "supertest";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 // URL of the api
-const server = request("http://localhost:3000");
+const server = request(`http://localhost:${process.env.SERVER_PORT || 3000}`);
 
 class MockUser {
   username: string;
@@ -159,7 +162,7 @@ describe("blogpost", () => {
 
     expect(response.status).toBe(400);
   });
-  it("should not created the post if was given a invalid created_by", async () => {
+  it("should not created the post if it was given a invalid created_by", async () => {
     const adminUser = new AdminUser();
 
     const blogpost = {
