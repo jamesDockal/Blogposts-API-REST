@@ -75,7 +75,9 @@ class UserController {
       return res.status(401).json({ error: "Invalid password" });
     }
 
-    res.status(200).send("teste");
+    const token = await sign(user.id, process.env.SECRET_KEY);
+
+    res.status(200).json({ token });
   }
 }
 
