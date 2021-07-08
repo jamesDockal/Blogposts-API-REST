@@ -3,14 +3,14 @@ import express from "express";
 import "./database";
 
 // routes file
-import router from "./routes";
+import UserRoutes from "./Routes/userRoutes";
 
 const app = express();
 
 // code to the express can ready json on the body
 app.use(express.json());
 
-// use the routes
-app.use(router);
+// user the routes
+app.use("/user", UserRoutes);
 
 export default app;
