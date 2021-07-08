@@ -13,15 +13,13 @@ class MockUser {
   }
 }
 
-class adminUser {
+class AdminUser {
   username: string;
   password: string;
   token: string;
   constructor() {
     this.username = "admin";
     this.password = "admin";
-    this.token =
-      "eyJhbGciOiJIUzI1NiJ9.MTliMDRjNDgtNzI2MC00ZjVjLTg1ZDAtZmMzMmVlNTQ4M2M2.GgaAMTpcS7Uj1X3plAx1W3SIj__fkL5zXXc4PeEeSTk";
   }
 }
 
@@ -114,7 +112,7 @@ describe("Loged routes", () => {
   it("should return a error if no token on header was provided", async () => {
     const user = new MockUser();
 
-    const response = await server.post("/user/test").send(user);
+    const response = await server.post("/user/private-route-test").send(user);
 
     expect(response.status).toBe(401);
   });
@@ -123,41 +121,62 @@ describe("Loged routes", () => {
     const user = new MockUser();
 
     const response = await server
-      .post("/user/test")
+      .post("/user/private-route-test")
       .send(user)
       .set({ authorization: "teste" });
 
     expect(response.status).toBe(400);
   });
-  it("should see return ok with pass a valid token", async () => {
-    const user = new adminUser();
+  it("should return ok with passing a valid token", async () => {
+    const user = new AdminUser();
+
+    const loginResponse = await server.post("/user/login").send(user);
+    const { token } = loginResponse.body;
 
     const response = await server
-      .post("/user/test")
+      .post("/user/private-route-test")
       .send(user)
-      .set({ authorization: `Bearer ${user.token}` });
+      .set({ authorization: `Bearer ${token}` });
 
     expect(response.status).toBe(200);
   });
 });
 
 describe("blogpost", () => {
-  it("should not pass with lack of information", async () => {
+  it("should not created if has with lack of information", async () => {
+    const adminUser = new AdminUser();
     const blogpost = {};
 
-    const response = await server.post("/blogpost/create").send(blogpost);
+    const loginResponse = await server.post("/user/login").send(adminUser);
+    const { token } = loginResponse.body;
+
+    const response = await server
+      .post("/blogpost/create")
+      .set({
+        authorization: `Bearer ${token}`,
+      })
+      .send(blogpost);
 
     expect(response.status).toBe(400);
   });
-  it("should not see if it's a valid user_id", async () => {
+  it("should not created if was given a invalid created_by", async () => {
+    const adminUser = new AdminUser();
+
     const blogpost = {
       title: "teste",
       content: "teste",
       slug: "teste",
-      created_by: "invalid user_id",
+      created_by: "invalid created_by",
     };
+    const loginResponse = await server.post("/user/login").send(adminUser);
+    const { token } = loginResponse.body;
 
-    const response = await server.post("/blogpost/create").send(blogpost);
+    const response = await server
+      .post("/blogpost/create")
+      .set({
+        authorization: `Bearer ${token}`,
+      })
+      .send(blogpost);
 
     expect(response.status).toBe(406);
   });

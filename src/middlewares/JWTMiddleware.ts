@@ -9,8 +9,6 @@ export default async function verifyToken(
   res: Response,
   next: NextFunction
 ) {
-  console.log("headers", req.headers);
-
   // get the header authorization where the token must be
   const bearerHeader = req.headers["authorization"];
 
@@ -18,7 +16,7 @@ export default async function verifyToken(
   if (!bearerHeader) {
     return res
       .status(401)
-      .json({ error: "Not Authorized, you must have a Bearer token!" });
+      .json({ error: "Not Authorized, you must have authorization header!" });
   }
 
   // separete the authauthorizationr header value into a array
@@ -34,6 +32,7 @@ export default async function verifyToken(
 
   // get the word "Bearer" and the token
   const [bearer, token] = splitedHeader;
+
   // if the bearer is no written Bearer return a error
   if (bearer !== "Bearer") {
     return res
@@ -44,9 +43,9 @@ export default async function verifyToken(
   // validate the token
   try {
     const user_id = await verify(token, process.env.SECRET_KEY);
+    res.locals.jwt_user_id = user_id;
+    next();
   } catch (e) {
     return res.status(400).json({ error: "Invalid Token" });
   }
-
-  next();
 }

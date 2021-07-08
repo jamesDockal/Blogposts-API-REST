@@ -13,4 +13,5 @@ export default async function userExist(userid: string) {
   if (!user) {
     throw new Error("invalid user_id");
   }
+  return user;
 }

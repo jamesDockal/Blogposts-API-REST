@@ -29,7 +29,7 @@ UserRoutes.post(
 );
 
 UserRoutes.post(
-  "/test",
+  "/private-route-test",
   userValidation.passedCrendentials,
   verifyToken,
   userController.teste

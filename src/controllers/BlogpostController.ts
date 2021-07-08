@@ -13,6 +13,12 @@ class BlogpostController {
   }
 
   async createPost(req: Request, res: Response) {
+    const { title, content, slug, created_by } = req.body;
+
+    // const { user } = res.locals;
+
+    console.log("locals", res.locals);
+
     return res.send("ok");
   }
 }
