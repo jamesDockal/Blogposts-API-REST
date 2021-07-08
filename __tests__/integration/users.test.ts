@@ -112,17 +112,22 @@ describe("login", () => {
 });
 
 describe("Loged routes", () => {
+  /*
+    to the user get logged, he must pass his username and pasword
+  */
   it("should return a error if no token on header was provided", async () => {
     const user = new MockUser();
 
+    // send a request to an route that the use must be logged, but with no
     const response = await server.post("/user/private-route-test").send(user);
 
     expect(response.status).toBe(401);
   });
-
   it("should return a error if the token does not have the word 'Bearer'", async () => {
+    // using any user
     const user = new MockUser();
 
+    // the header is invalid, it must be "Bearer ...token"
     const response = await server
       .post("/user/private-route-test")
       .send(user)
@@ -130,12 +135,16 @@ describe("Loged routes", () => {
 
     expect(response.status).toBe(400);
   });
-  it("should return ok with passing a valid token", async () => {
+  it("should return ok if pass a valid token", async () => {
+    // using an user that alredy exist on database
     const user = new AdminUser();
 
+    // login the user
+    // get the token and pass to header
     const loginResponse = await server.post("/user/login").send(user);
     const { token } = loginResponse.body;
 
+    // send a request passing a valid authorization header
     const response = await server
       .post("/user/private-route-test")
       .send(user)
@@ -146,10 +155,37 @@ describe("Loged routes", () => {
 });
 
 describe("blogpost", () => {
-  it("should not create if the user is not logged", async () => {
+  /*
+    to create a post, the user must be logged
+    to see if the user is logged, there must be a header 'authorization' with value
+    "Bearer ${token}"
+    and the post must have title, content and slug
+  */
+  it("should return a error if no token on header was provided", async () => {
+    const user = new MockUser();
+
+    // send a request to an route that the use must be logged, but with no
+    const response = await server.post("/blogpost/create").send(user);
+
+    expect(response.status).toBe(401);
+  });
+  it("should return a error if the token does not have the word 'Bearer'", async () => {
+    // using any user
+    const user = new MockUser();
+
+    // the header is invalid, it must be "Bearer ...token"
+    const response = await server
+      .post("/blogpost/create")
+      .send(user)
+      .set({ authorization: "teste" });
+
+    expect(response.status).toBe(400);
+  });
+  it("should not create a post if the user is not logged", async () => {
     // to see if the user is logged, there must be the jwt on the header
     const blogpost = {};
 
+    // send a request but not providing a acceptable token
     const response = await server
       .post("/blogpost/create")
       .set({
@@ -159,13 +195,37 @@ describe("blogpost", () => {
 
     expect(response.status).toBe(400);
   });
-  it("should not create if there are lack of information", async () => {
+
+  it("should return ok if pass a valid token", async () => {
+    // using an user that alredy exist on database
+    const user = new AdminUser();
+
+    // login the user
+    // get the token and pass to header
+    const loginResponse = await server.post("/user/login").send(user);
+    const { token } = loginResponse.body;
+
+    // send a request passing a valid authorization header
+    const response = await server
+      .post("/user/private-route-test")
+      .send(user)
+      .set({ authorization: `Bearer ${token}` });
+
+    expect(response.status).toBe(200);
+  });
+  it("should NOT create if there are lack of information", async () => {
+    // using an user that alredy exist on database
     const adminUser = new AdminUser();
+    // creating a mock post with no information in it
     const blogpost = {};
 
+    // login the user
+    // get the token and pass to header
     const loginResponse = await server.post("/user/login").send(adminUser);
     const { token } = loginResponse.body;
 
+    // it will return an error
+    // as the blogpost doest have any information in it
     const response = await server
       .post("/blogpost/create")
       .set({
@@ -176,19 +236,24 @@ describe("blogpost", () => {
     expect(response.status).toBe(400);
   });
   it("should create the post if the information were paseed and the user is logged", async () => {
-    // to see if the user is logged, there must be the jwt on the header
+    // to see if the user is logged,
+    // there must be the jwt on the header
+
+    // login an user that alredy exist on database
     const adminUser = new AdminUser();
-
     const loggedUser = await server.post("/user/login").send(adminUser);
-    const { token, id } = loggedUser.body;
+    // and getting his token to log him
+    const { token } = loggedUser.body;
 
+    // create a mock post
     const blogpost = {
       title: "teste",
       content: "teste",
       slug: "teste",
-      created_by: id,
     };
 
+    // send the request to create the post
+    // passing the post and with the user logged
     const response = await server
       .post("/blogpost/create")
       .set({

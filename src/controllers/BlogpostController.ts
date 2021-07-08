@@ -17,15 +17,16 @@ class BlogpostController {
 
     const blogpostRepository = getRepository(Blogpost);
 
+    // creating the new post and save it
     const newPost = await blogpostRepository.create({
       title,
       content,
       slug,
       created_by,
     });
-
     await blogpostRepository.save(newPost);
 
+    // return the new post that was created
     return res.json({ post: newPost });
   }
 }
