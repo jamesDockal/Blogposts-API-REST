@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 class UserMiddleware {
+  // this middleware gonna see if the username and password were provided
   passedCrendentials(req: Request, res: Response, next: NextFunction) {
     const { username, password } = req.body;
 
