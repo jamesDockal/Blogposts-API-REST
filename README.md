@@ -18,8 +18,8 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`
 
 ## Routes
 
-> ### User
->
+> >### User
+> >
 > > GET `user/` <br>
 > > Get all the users
 >
