@@ -22,11 +22,15 @@ class BlogpostMiddleware {
 
     return next();
   }
-
+  // this middleware gonna see if the 'user id' passed through created_by exist on db
   async valiedUserId(req: Request, res: Response, next: NextFunction) {
     const { created_by } = req.body;
-
-    next();
+    try {
+      const user = await userExist(created_by);
+      return next();
+    } catch (e) {
+      return res.status(406).json({ error: e.message });
+    }
   }
 }
 
