@@ -22,6 +22,7 @@ export class blogposts1625726254000 implements MigrationInterface {
             name: "title",
             type: "varchar",
             isNullable: false,
+            isUnique: true,
           },
           {
             name: "content",

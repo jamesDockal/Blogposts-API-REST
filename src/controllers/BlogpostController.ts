@@ -57,17 +57,21 @@ class BlogpostController {
       .replace(/ /g, "-")
       .replace(/[^\w-]+/g, "");
 
-    // creating the new post and save it
-    const newPost = await blogpostRepository.create({
-      title,
-      content,
-      slug,
-      created_by,
-    });
-    await blogpostRepository.save(newPost);
+    try {
+      // creating the new post and save it
+      const newPost = await blogpostRepository.create({
+        title,
+        content,
+        slug,
+        created_by,
+      });
+      await blogpostRepository.save(newPost);
 
-    // return the new post that was created
-    return res.json({ post: newPost });
+      // return the new post that was created
+      return res.json({ post: newPost });
+    } catch (e) {
+      return res.status(400).json({ error: e.message });
+    }
   }
 
   async deletePost(req: Request, res: Response) {
@@ -99,7 +103,7 @@ class BlogpostController {
     try {
       // deleting the post
       await blogpostRepository.delete(post);
-      return res.json({ sucess: "Post deleted" });
+      return res.json({ success: "Post deleted" });
     } catch (e) {
       return res.status(500).json({
         error: e.message,
@@ -148,54 +152,59 @@ class BlogpostController {
 
     // Checking what was given to change
     // and updating
-    if (title && content) {
-      const slug = title
-        .toLowerCase()
-        .replace(/ /g, "-")
-        .replace(/[^\w-]+/g, "");
+    try {
+      if (title && content) {
+        const slug = title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[^\w-]+/g, "");
 
-      await blogpost.update(post.id, {
-        title,
-        content,
-        slug,
-      });
+        await blogpost.update(post.id, {
+          title,
+          content,
+          slug,
+        });
 
-      // retriving the new update post
-      const updatePost = await blogpost.findOne({
-        id,
-      });
+        // retriving the new update post
+        const updatePost = await blogpost.findOne({
+          id,
+        });
 
-      return res.json({ updatePost });
-    }
-    if (title) {
-      const slug = title
-        .toLowerCase()
-        .replace(/ /g, "-")
-        .replace(/[^\w-]+/g, "");
+        return res.json({ updatePost });
+      }
+      if (title) {
+        const slug = title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[^\w-]+/g, "");
 
-      await blogpost.update(post.id, {
-        title,
-        slug,
-      });
+        await blogpost.update(post.id, {
+          title,
+          slug,
+        });
 
-      // retriving the new update post
-      const updatePost = await blogpost.findOne({
-        id,
-      });
+        // retriving the new update post
+        const updatePost = await blogpost.findOne({
+          id,
+        });
 
-      return res.json({ updatePost });
-    }
-    if (content) {
-      await blogpost.update(post.id, {
-        content,
-      });
+        return res.json({ updatePost });
+      }
+      if (content) {
+        await blogpost.update(post.id, {
+          content,
+        });
 
-      // retriving the new update post
-      const updatePost = await blogpost.findOne({
-        id,
-      });
+        // retriving the new update post
+        const updatePost = await blogpost.findOne({
+          id,
+        });
 
-      return res.json({ updatePost });
+        return res.json({ updatePost });
+      }
+    } catch (e) {
+      // if the user is tring to change the title for one that alredy exists
+      return res.status(400).json({ errror: "Title alredy in use" });
     }
   }
 }

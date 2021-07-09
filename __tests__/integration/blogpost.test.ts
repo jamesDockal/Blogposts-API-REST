@@ -141,7 +141,7 @@ describe("blogpost", () => {
 
       // create a mock post
       const blogpost = {
-        title: "React, getting started!",
+        title: "Node.js first steps",
         content: "any_content",
       };
 
