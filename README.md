@@ -20,6 +20,10 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > > The default port is `3000`. <br>
 > > To change it go to `.env` and create the variable `SERVER_PORT` and > add the port that you want.
 
+> ## Run The Tests
+>
+>     npm test
+
 > ## Routes
 >
 > > ### User
@@ -215,6 +219,4 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > > }
 > > ```
 
-> ## Run The Tests
->
->     npm test
+
