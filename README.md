@@ -76,13 +76,16 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > > ```
 > >
 > > ##### POST `user/login` <br>
-> >
-> > Login user passing JSON on body with the following information.
+> > To get logged to use other `routes`, 
+> > you need to use the `header` with the name `authorization`,
+> > And use its value as `Bearer {token}`.
+> > To get the token you need to pass a JSON on body with the following information.
 > > | Body | Type | Required |
 > > |--------------------|--------|-------- |
 > > | `username` | string |True |
 > > | `password` | string |True |
-> >
+> > 
+> > 
 > > ##### Example:
 > >
 > > ```json
