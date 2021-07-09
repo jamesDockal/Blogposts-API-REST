@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import userExist from "../utils/userExist";
+import { getRepository } from "typeorm";
 
 class BlogpostMiddleware {
   // to created a post, you have to pass the necessary informations
@@ -13,9 +13,6 @@ class BlogpostMiddleware {
     if (!content) {
       return res.status(400).json({ error: "You need provide a content!" });
     }
-    // if (!slug) {
-    //   return res.status(400).json({ error: "You need provide a slug!" });
-    // }
 
     return next();
   }

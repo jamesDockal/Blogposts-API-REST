@@ -31,7 +31,7 @@ export class blogposts1625726254000 implements MigrationInterface {
           {
             name: "created_by",
             type: "varchar",
-            isNullable: false,
+            isNullable: true,
           },
         ],
         foreignKeys: [

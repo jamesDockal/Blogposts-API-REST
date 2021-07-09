@@ -40,13 +40,17 @@ UserRoutes.post(
 
 // delete an user with the passed id on the url
 UserRoutes.delete("/:id", async (req, res) => {
-  const userRepository = await getRepository(User);
+  try {
+    const userRepository = await getRepository(User);
 
-  const user: any = await userRepository.findOne({
-    id: req.params.id,
-  });
-  await userRepository.delete(user);
-  res.send("user deleted");
+    const user: any = await userRepository.findOne({
+      id: req.params.id,
+    });
+    await userRepository.delete(user);
+    return res.send("user deleted");
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
 });
 
 export default UserRoutes;
