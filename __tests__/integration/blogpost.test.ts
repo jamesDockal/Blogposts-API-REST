@@ -35,6 +35,12 @@ class MockPost {
 }
 
 describe("blogpost", () => {
+  describe("find single post", () => {
+    it("should return 400 a post if not find the post with the id", async () => {
+      const response = await server.get("/blogpost/no_post_with_this_id");
+      expect(response.status).toBe(404);
+    });
+  });
   /*
     to create a post, the user must be logged
     to see if the user is logged, there must be a header 'authorization' with value
@@ -215,7 +221,7 @@ describe("blogpost", () => {
   describe("deleting posts", () => {
     it("should NOT delete a post if the user is not logged", async () => {
       const response = await server.delete("/blogpost/post-id");
-      console.log("response,", response.body);
+      // console.log("response,", response.body);
       expect(response.status).toBe(401);
     });
 
@@ -232,9 +238,106 @@ describe("blogpost", () => {
         authorization: `Bearer ${token}`,
       });
 
-      console.log("response,", response.body);
+      // console.log("response,", response.body);
       expect(response.status).toBe(404);
     });
+  });
+
+  describe("update post", () => {
+    it("should NOT update a post if the user is not logged", async () => {
+      const response = await server.put("/blogpost/post-id");
+      // console.log("response,", response.body);
+      expect(response.status).toBe(401);
+    });
+
+    it("should NOT update a post if was not passed a valid id", async () => {
+      // using an user that alredy exist on database
+      const user = new AdminUser();
+
+      // login the user
+      // get the token and pass to header
+      const loginResponse = await server.post("/user/login").send(user);
+      const { token } = loginResponse.body;
+
+      const response = await server.put("/blogpost/some_id").set({
+        authorization: `Bearer ${token}`,
+      });
+
+      // console.log("response,", response.body);
+      expect(response.status).toBe(400);
+    });
+    it("should NOT update a post if was not neither title nor content", async () => {
+      // using an user that alredy exist on database
+      const user = new AdminUser();
+
+      // login the user
+      // get the token and pass to header
+      const loginResponse = await server.post("/user/login").send(user);
+      const { token } = loginResponse.body;
+
+      const postToUpdate = {
+        // title: 'some_title',
+        // content: "some_content",
+      };
+
+      const response = await server
+        .put("/blogpost/some_id")
+        .set({
+          authorization: `Bearer ${token}`,
+        })
+        .send(postToUpdate);
+
+      // console.log("response,", response.body);
+      expect(response.status).toBe(400);
+    });
+    it("should NOT update a post if not find a post", async () => {
+      // using an user that alredy exist on database
+      const user = new AdminUser();
+
+      // login the user
+      // get the token and pass to header
+      const loginResponse = await server.post("/user/login").send(user);
+      const { token } = loginResponse.body;
+
+      const postToUpdate = {
+        title: "some_title",
+        content: "some_content",
+      };
+
+      const response = await server
+        .put("/blogpost/:not-a-valid-id")
+        .set({
+          authorization: `Bearer ${token}`,
+        })
+        .send(postToUpdate);
+
+      // console.log("response,", response.body);
+      expect(response.status).toBe(404);
+    });
+    // it("should NOT update a post if not find a post", async () => {
+    //   // using an user that alredy exist on database
+    //   const user = new AdminUser();
+
+    //   // login the user
+    //   // get the token and pass to header
+    //   const loginResponse = await server.post("/user/login").send(user);
+    //   const { token } = loginResponse.body;
+
+    //   const postToUpdate = {
+    //     title: "some_title",
+    //     content: "some_content",
+    //   };
+
+    //   const response = await server
+    //     .put("/blogpost/:not-a-valid-id")
+    //     .set({
+    //       authorization: `Bearer ${token}`,
+    //     })
+    //     .send(postToUpdate);
+
+    //   // console.log("response,", response.body);
+    //   expect(response.status).toBe(404);
+    // });
   });
 });
 // it("should return 404 if search for a post that doest exists", async () => {

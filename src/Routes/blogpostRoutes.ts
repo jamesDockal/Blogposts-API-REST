@@ -15,6 +15,7 @@ const jwtMiddleware = new JWTMiddleware();
 const blogpostController = new BlogpostController();
 
 BlogRoutes.get("/", blogpostController.getAllBlogpost);
+BlogRoutes.get("/:id", blogpostController.getOnePost);
 
 BlogRoutes.post(
   "/create",
@@ -30,6 +31,13 @@ BlogRoutes.delete(
   jwtMiddleware.verifyToken,
   userExist.searchByJWT,
   blogpostController.deletePost
+);
+
+BlogRoutes.put(
+  "/:id",
+  jwtMiddleware.verifyToken,
+  userExist.searchByJWT,
+  blogpostController.updatePost
 );
 
 export default BlogRoutes;

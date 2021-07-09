@@ -11,6 +11,24 @@ class BlogpostController {
     return res.send(allPost);
   }
 
+  async getOnePost(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const blogpost = await getRepository(Blogpost);
+
+    const post = await blogpost.findOne({
+      id,
+    });
+
+    if (!post) {
+      return res.status(404).json({
+        error: "Post not found",
+      });
+    }
+
+    res.send("ok");
+  }
+
   async createPost(req: Request, res: Response) {
     // get the necessary information to create a post
     const { title, content } = req.body;
@@ -64,6 +82,36 @@ class BlogpostController {
     } catch (e) {
       return res.status(500).json({
         error: e.message,
+      });
+    }
+  }
+
+  async updatePost(req: Request, res: Response) {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        error: "To update a post, you must pass an the id on the url ",
+      });
+    }
+
+    const { title, content } = req.body;
+
+    if (!title && !content) {
+      return res.status(400).json({
+        error: "To update a post, you must provided title or a content",
+      });
+    }
+
+    const blogpost = await getRepository(Blogpost);
+
+    const post = await blogpost.findOne({
+      id,
+    });
+    // console.log("post", post);
+    if (!post) {
+      return res.status(404).json({
+        error: "Post not found",
       });
     }
   }
