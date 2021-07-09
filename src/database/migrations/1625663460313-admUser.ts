@@ -9,6 +9,7 @@ export class admUser1625663460313 implements MigrationInterface {
     const userRepository = await getRepository(User);
 
     const user = await userRepository.create({
+      id: "admin",
       username: "admin",
       password_hash: await hashPassword("admin"),
     });
