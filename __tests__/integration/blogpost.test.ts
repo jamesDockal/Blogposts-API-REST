@@ -214,9 +214,26 @@ describe("blogpost", () => {
 
   describe("deleting posts", () => {
     it("should NOT delete a post if the user is not logged", async () => {
-      const response = await server.delete("/blogpost/:post-id");
+      const response = await server.delete("/blogpost/post-id");
       console.log("response,", response.body);
       expect(response.status).toBe(401);
+    });
+
+    it("should NOT delete a post if was not passed a valid id", async () => {
+      // using an user that alredy exist on database
+      const user = new AdminUser();
+
+      // login the user
+      // get the token and pass to header
+      const loginResponse = await server.post("/user/login").send(user);
+      const { token } = loginResponse.body;
+
+      const response = await server.delete("/blogpost/not-a-valid-id").set({
+        authorization: `Bearer ${token}`,
+      });
+
+      console.log("response,", response.body);
+      expect(response.status).toBe(404);
     });
   });
 });

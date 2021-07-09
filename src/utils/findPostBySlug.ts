@@ -5,7 +5,7 @@ import Blogpost from "../entities/BlogpostEntity";
 export default async function findPostBySlug(res: Response, slug: string) {
   const blogpostRepository = getRepository(Blogpost);
 
-  const post = blogpostRepository.findOne({
+  const post = await blogpostRepository.findOne({
     slug,
   });
 

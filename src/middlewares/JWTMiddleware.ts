@@ -11,9 +11,10 @@ class JWTMiddleware {
 
     //if there is no authorization header, it will return a error
     if (!bearerHeader) {
-      return res
-        .status(401)
-        .json({ error: "Not Authorized, you must have authorization header!" });
+      return res.status(401).json({
+        error:
+          "Not Authorized, you must have authorization header with 'Bearer ...token'!",
+      });
     }
 
     // separete the authauthorizationr header value into a array
@@ -24,7 +25,7 @@ class JWTMiddleware {
     if (splitedHeader.length < 2) {
       return res
         .status(400)
-        .json({ error: "Token bad formated, it should be 'Bearer ${token}" });
+        .json({ error: "Token bad formated, it should be 'Bearer ...token'" });
     }
 
     // get the word "Bearer" and the token
@@ -34,7 +35,7 @@ class JWTMiddleware {
     if (bearer !== "Bearer") {
       return res
         .status(400)
-        .json({ error: "Token bad formated, it should be 'Bearer ${token}" });
+        .json({ error: "Token bad formated, it should be 'Bearer ...token" });
     }
 
     // validate the token
