@@ -42,6 +42,7 @@ class UserController {
     // save the user in the databse
     await userRepository.save(user);
 
+    // create the token for the user can get logged
     const token = await sign(user.id, process.env.SECRET_KEY);
 
     // return status 200 as everything worked
@@ -62,25 +63,33 @@ class UserController {
     // get all users
     const users = await userRepository.find();
 
+    // removing the password to the response
+    const userFormated = await users.map((element) => {
+      return {
+        id: element.id,
+        username: element.username,
+      };
+    });
     // return status 200 as everything worked
-    return res.status(200).json({ users });
+    return res.status(200).json({ users: userFormated });
   }
 
   async login(req: Request, res: Response) {
-    const { username, password } = req.body;
+    const { password } = req.body;
+    const { user } = res.locals;
 
-    const user = await getRepository(User).findOne({ username });
-    console.log("user", user);
+    // console.log("logged", user);
 
-    if (!user) {
-      return res.status(400).json({ error: "User not found" });
-    }
-
+    // verify if the user password is the same in database
     const rightPassword = await compare(password, user.password_hash);
     if (!rightPassword) {
       return res.status(401).json({ error: "Invalid password" });
     }
 
+    // create a token to the user,
+    // for get logged in app
+    // provided it to the authorization header
+    // like { authorization: `Bearer ${token}`}
     const token = await sign(user.id, process.env.SECRET_KEY);
 
     res.status(200).json({ token, id: user.id });

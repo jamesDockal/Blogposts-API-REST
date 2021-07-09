@@ -11,8 +11,10 @@ const app = express();
 // code to the express can ready json on the body
 app.use(express.json());
 
-// user the routes
+// user's routes
 app.use("/user", UserRoutes);
+
+// blogpost' routes
 app.use("/blogpost", BlogRoutes);
 
 export default app;

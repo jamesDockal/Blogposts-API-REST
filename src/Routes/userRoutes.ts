@@ -6,6 +6,7 @@ import verifyToken from "../middlewares/JWTMiddleware";
 import { getRepository } from "typeorm";
 import User from "../entities/UserEntity";
 import JWTMiddleware from "../middlewares/JWTMiddleware";
+import UserExistsMIddleware from "../middlewares/userExists";
 
 const UserRoutes = Router();
 
@@ -15,16 +16,34 @@ const userValidation = new UserValidation();
 // controllers of the user's routes
 const userController = new UserController();
 
+const userExists = new UserExistsMIddleware();
+
 const jwtMiddleware = new JWTMiddleware();
 
 // route that gonna get all the users of the app
 UserRoutes.get("/", userController.getAllUsers);
 
-// route to create a new user
+/*
+  route to create a new user
+  to create an user it must provide username and password on the body
+  the username cant be using by other user 
+*/
 UserRoutes.post(
   "/register",
   userValidation.passedCrendentials,
   userController.createUser
+);
+
+/*
+  route to create a new user
+  to create an user it must provide username and password on the body
+  the username cant be using by other user 
+*/
+UserRoutes.post(
+  "/login",
+  userValidation.passedCrendentials,
+  userExists.searchByUsername,
+  userController.login
 );
 
 // a route to test the token to loggin
@@ -33,12 +52,6 @@ UserRoutes.post(
   userValidation.passedCrendentials,
   jwtMiddleware.verifyToken,
   userController.teste
-);
-
-UserRoutes.post(
-  "/login",
-  userValidation.passedCrendentials,
-  userController.login
 );
 
 // delete an user with the passed id on the url

@@ -2,6 +2,11 @@ import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class blogposts1625726254000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    /*
+      create a blogposts table
+      it has a relation with the user table
+      created_by column references to the user id
+    */
     queryRunner.createTable(
       new Table({
         name: "blogposts",

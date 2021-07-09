@@ -3,8 +3,10 @@ import Blogpost from "../../entities/BlogpostEntity";
 
 export class defaultPosts1625809397391 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    //creating the 3 default posts
-
+    /*
+      creating 3 default posts
+      and saving on blogpost table
+    */
     const blogpostRepository = getRepository(Blogpost);
 
     const post1 = await blogpostRepository.create({
@@ -32,8 +34,9 @@ export class defaultPosts1625809397391 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const blogpostRepository = await getRepository(Blogpost);
     // deleting the 3 post if necessary
+
+    const blogpostRepository = await getRepository(Blogpost);
     const post1: any = await blogpostRepository.findOne({
       created_by: "admin",
     });
