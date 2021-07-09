@@ -78,7 +78,7 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > > ##### POST `user/login` <br>
 > > To get logged to use other `routes`, <br>
 > > you need to use the `header` with the name `authorization`, <br>
-> > And use its value as `Bearer {token}`. <br>
+> > And use the value as `Bearer {token}`. <br>
 > > To get the token you need to pass a JSON on body with the following information.
 > > | Body | Type | Required |
 > > |--------------------|--------|-------- |
