@@ -5,6 +5,7 @@ import UserController from "../controllers/UserController";
 import verifyToken from "../middlewares/JWTMiddleware";
 import { getRepository } from "typeorm";
 import User from "../entities/UserEntity";
+import JWTMiddleware from "../middlewares/JWTMiddleware";
 
 const UserRoutes = Router();
 
@@ -13,6 +14,8 @@ const userValidation = new UserValidation();
 
 // controllers of the user's routes
 const userController = new UserController();
+
+const jwtMiddleware = new JWTMiddleware();
 
 // route that gonna get all the users of the app
 UserRoutes.get("/", userController.getAllUsers);
@@ -28,7 +31,7 @@ UserRoutes.post(
 UserRoutes.post(
   "/private-route-test",
   userValidation.passedCrendentials,
-  verifyToken,
+  jwtMiddleware.verifyToken,
   userController.teste
 );
 

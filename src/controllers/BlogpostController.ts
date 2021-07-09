@@ -38,6 +38,35 @@ class BlogpostController {
     // return the new post that was created
     return res.json({ post: newPost });
   }
+
+  async deletePost(req: Request, res: Response) {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        error: "To delete a post, you must pass an the id on the url ",
+      });
+    }
+    const blogpostRepository = await getRepository(Blogpost);
+
+    const post: any = await blogpostRepository.findOne({
+      id,
+    });
+    console.log(post);
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    try {
+      await blogpostRepository.delete(post);
+      return res.json({ sucess: "Post deleted" });
+    } catch (e) {
+      return res.status(500).json({
+        error: e.message,
+      });
+    }
+  }
 }
 
 export default BlogpostController;
