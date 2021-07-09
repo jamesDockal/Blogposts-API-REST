@@ -159,7 +159,8 @@ describe("blogpost", () => {
     to create a post, the user must be logged
     to see if the user is logged, there must be a header 'authorization' with value
     "Bearer ${token}"
-    and the post must have title, content and slug
+    and the post must have title and content
+    To create the post, must be provided a title and the content
   */
   it("should return a error if no token on header was provided", async () => {
     const user = new MockUser();
@@ -235,6 +236,7 @@ describe("blogpost", () => {
 
     expect(response.status).toBe(400);
   });
+  it("should NOT create a post if the title is alredy in use", async () => {});
   it("should create the post if the information were paseed and the user is logged", async () => {
     // to see if the user is logged,
     // there must be the jwt on the header
@@ -249,7 +251,6 @@ describe("blogpost", () => {
     const blogpost = {
       title: "teste",
       content: "teste",
-      slug: "teste",
     };
 
     // send the request to create the post
