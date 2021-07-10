@@ -16,6 +16,10 @@ app.use(cors());
 // code to the express can ready json on the body
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  return res.send("ok");
+});
+
 // user's routes
 app.use("/user", UserRoutes);
 
