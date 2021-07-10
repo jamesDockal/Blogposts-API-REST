@@ -40,7 +40,8 @@ class JWTMiddleware {
 
     // validate the token
     try {
-      const user_id = await verify(token, process.env.SECRET_KEY);
+      const secretKey = process.env.SECRET_KEY || "some_secret_key";
+      const user_id = await verify(token, secretKey);
       res.locals.jwt_user_id = user_id;
       next();
     } catch (e) {

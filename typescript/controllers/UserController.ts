@@ -43,7 +43,8 @@ class UserController {
     await userRepository.save(user);
 
     // create the token for the user can get logged
-    const token = await sign(user.id, process.env.SECRET_KEY);
+    const secretKey = process.env.SECRET_KEY || "some_secret_key";
+    const token = await sign(user.id, secretKey);
 
     // return status 200 as everything worked
     return res.status(200).json({
@@ -90,7 +91,8 @@ class UserController {
     // for get logged in app
     // provided it to the authorization header
     // like { authorization: `Bearer ${token}`}
-    const token = await sign(user.id, process.env.SECRET_KEY);
+    const secretKey = process.env.SECRET_KEY || "some_secret_key";
+    const token = await sign(user.id, secretKey);
 
     res.status(200).json({ token, id: user.id });
   }
