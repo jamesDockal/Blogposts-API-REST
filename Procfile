@@ -1,2 +1,2 @@
-web: npm run typeorm migration:run
-api: npm start
+api: npm run typeorm migration:run
+web: npm start
