@@ -7,10 +7,10 @@ var express_1 = require("express");
 var BlogpostController_1 = __importDefault(require("../controllers/BlogpostController"));
 var BlogpostMiddleware_1 = __importDefault(require("../middlewares/BlogpostMiddleware"));
 var JWTMiddleware_1 = __importDefault(require("../middlewares/JWTMiddleware"));
-var userExists_1 = __importDefault(require("../middlewares/userExists"));
+var UserExistsMIddleware_1 = __importDefault(require("../middlewares/UserExistsMIddleware"));
 var BlogRoutes = express_1.Router();
 var blogpostMiddleware = new BlogpostMiddleware_1.default();
-var userExist = new userExists_1.default();
+var userExist = new UserExistsMIddleware_1.default();
 var jwtMiddleware = new JWTMiddleware_1.default();
 var blogpostController = new BlogpostController_1.default();
 // route to get all the posts

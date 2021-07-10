@@ -2,7 +2,7 @@ import { Router } from "express";
 import BlogpostController from "../controllers/BlogpostController";
 import BlogpostMiddleware from "../middlewares/BlogpostMiddleware";
 import JWTMiddleware from "../middlewares/JWTMiddleware";
-import UserExists from "../middlewares/userExists";
+import UserExists from "../middlewares/UserExistsMIddleware";
 
 const BlogRoutes = Router();
 

@@ -45,13 +45,13 @@ var UserController_1 = __importDefault(require("../controllers/UserController"))
 var typeorm_1 = require("typeorm");
 var UserEntity_1 = __importDefault(require("../entities/UserEntity"));
 var JWTMiddleware_1 = __importDefault(require("../middlewares/JWTMiddleware"));
-var userExists_1 = __importDefault(require("../middlewares/userExists"));
+var UserExistsMIddleware_1 = __importDefault(require("../middlewares/UserExistsMIddleware"));
 var UserRoutes = express_1.Router();
 // middleware of the users
 var userValidation = new UserMiddleware_1.default();
 // controllers of the user's routes
 var userController = new UserController_1.default();
-var userExists = new userExists_1.default();
+var userExists = new UserExistsMIddleware_1.default();
 var jwtMiddleware = new JWTMiddleware_1.default();
 // route that gonna get all the users of the app
 UserRoutes.get("/", userController.getAllUsers);

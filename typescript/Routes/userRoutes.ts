@@ -6,7 +6,7 @@ import verifyToken from "../middlewares/JWTMiddleware";
 import { getRepository } from "typeorm";
 import User from "../entities/UserEntity";
 import JWTMiddleware from "../middlewares/JWTMiddleware";
-import UserExistsMIddleware from "../middlewares/userExists";
+import UserExistsMIddleware from "../middlewares/UserExistsMIddleware";
 
 const UserRoutes = Router();
 
