@@ -176,7 +176,7 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > >     "title": "A Brand New Title!",
 > >     "content": "A new point of view to the front-end framework React.js",
 > >     "slug": "a-brand-new-title",
-> >     "created_by": "c1fee994-4969-4d31-9649-705748850364",
+> >     "created_by": "james",
 > >     "id": "88270e66-a244-433d-9605-a5639c3b57ec"
 > >   }
 > > }

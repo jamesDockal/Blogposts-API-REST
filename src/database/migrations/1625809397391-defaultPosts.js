@@ -55,7 +55,7 @@ var defaultPosts1625809397391 = /** @class */ (function () {
                         return [4 /*yield*/, blogpostRepository.create({
                                 created_by: "admin",
                                 title: "React, getting started!",
-                                content: "introduce to the front-end framework React.js...",
+                                content: "introduce to the front-end framework React.js",
                                 slug: "react-getting-started",
                             })];
                     case 1:
@@ -63,7 +63,7 @@ var defaultPosts1625809397391 = /** @class */ (function () {
                         return [4 /*yield*/, blogpostRepository.create({
                                 created_by: "admin",
                                 title: "Node.js first steps",
-                                content: "lets learn how to install Node and run a server!...",
+                                content: "lets learn how to install Node and run a server!",
                                 slug: "nodejs-first-steps",
                             })];
                     case 2:
@@ -71,7 +71,7 @@ var defaultPosts1625809397391 = /** @class */ (function () {
                         return [4 /*yield*/, blogpostRepository.create({
                                 created_by: "admin",
                                 title: "What is a Relational database?",
-                                content: "The first you need to is, what is a database?...",
+                                content: "The first thing you need to know is, what is a database?",
                                 slug: "what-is-a-relational-database",
                             })];
                     case 3:
