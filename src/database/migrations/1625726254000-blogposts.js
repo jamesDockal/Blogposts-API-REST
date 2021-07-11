@@ -84,7 +84,7 @@ var blogposts1625726254000 = /** @class */ (function () {
                         {
                             name: "FK_cretedBy_user",
                             referencedTableName: "users",
-                            referencedColumnNames: ["id"],
+                            referencedColumnNames: ["username"],
                             columnNames: ["created_by"],
                             onDelete: "SET NULL",
                             onUpdate: "SET NULL",

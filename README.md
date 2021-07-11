@@ -140,7 +140,7 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > >     "title": "React, getting started!",
 > >     "content": "A introduce to the front-end framework React.js",
 > >     "slug": "react-getting-started",
-> >     "created_by": "c1fee994-4969-4d31-9649-705748850364",
+> >     "created_by": "james",
 > >     "id": "88270e66-a244-433d-9605-a5639c3b57ec"
 > >   }
 > > }

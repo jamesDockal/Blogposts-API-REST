@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var BlogpostEntity_1 = __importDefault(require("../entities/BlogpostEntity"));
+var UserEntity_1 = __importDefault(require("../entities/UserEntity"));
 var BlogpostController = /** @class */ (function () {
     function BlogpostController() {
     }
@@ -88,37 +89,45 @@ var BlogpostController = /** @class */ (function () {
     };
     BlogpostController.prototype.createPost = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, title, content, created_by, blogpostRepository, slug, newPost, e_1;
+            var _a, title, content, created_by, userRepository, user, blogpostRepository, slug, newPost, e_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, title = _a.title, content = _a.content;
                         created_by = res.locals.jwt_user_id;
+                        return [4 /*yield*/, typeorm_1.getRepository(UserEntity_1.default)];
+                    case 1:
+                        userRepository = _b.sent();
+                        return [4 /*yield*/, userRepository.findOne({
+                                id: created_by,
+                            })];
+                    case 2:
+                        user = _b.sent();
                         blogpostRepository = typeorm_1.getRepository(BlogpostEntity_1.default);
                         slug = title
                             .toLowerCase()
                             .replace(/ /g, "-")
                             .replace(/[^\w-]+/g, "");
-                        _b.label = 1;
-                    case 1:
-                        _b.trys.push([1, 4, , 5]);
+                        _b.label = 3;
+                    case 3:
+                        _b.trys.push([3, 6, , 7]);
                         return [4 /*yield*/, blogpostRepository.create({
                                 title: title,
                                 content: content,
                                 slug: slug,
-                                created_by: created_by,
+                                created_by: user === null || user === void 0 ? void 0 : user.username,
                             })];
-                    case 2:
+                    case 4:
                         newPost = _b.sent();
                         return [4 /*yield*/, blogpostRepository.save(newPost)];
-                    case 3:
+                    case 5:
                         _b.sent();
                         // return the new post that was created
                         return [2 /*return*/, res.json({ post: newPost })];
-                    case 4:
+                    case 6:
                         e_1 = _b.sent();
                         return [2 /*return*/, res.status(400).json({ error: e_1.message })];
-                    case 5: return [2 /*return*/];
+                    case 7: return [2 /*return*/];
                 }
             });
         });

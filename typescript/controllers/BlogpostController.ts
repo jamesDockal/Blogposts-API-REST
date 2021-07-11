@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import Blogpost from "../entities/BlogpostEntity";
+import User from "../entities/UserEntity";
 
 class BlogpostController {
   async getAllBlogpost(req: Request, res: Response) {
@@ -45,6 +46,12 @@ class BlogpostController {
     const { title, content } = req.body;
     const created_by = res.locals.jwt_user_id;
 
+    const userRepository = await getRepository(User);
+
+    const user = await userRepository.findOne({
+      id: created_by,
+    });
+
     const blogpostRepository = getRepository(Blogpost);
 
     /*
@@ -63,8 +70,9 @@ class BlogpostController {
         title,
         content,
         slug,
-        created_by,
+        created_by: user?.username,
       });
+
       await blogpostRepository.save(newPost);
 
       // return the new post that was created

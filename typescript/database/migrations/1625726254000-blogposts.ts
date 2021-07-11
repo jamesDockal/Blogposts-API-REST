@@ -44,7 +44,7 @@ export class blogposts1625726254000 implements MigrationInterface {
           {
             name: "FK_cretedBy_user",
             referencedTableName: "users",
-            referencedColumnNames: ["id"],
+            referencedColumnNames: ["username"],
             columnNames: ["created_by"],
             onDelete: "SET NULL",
             onUpdate: "SET NULL",
