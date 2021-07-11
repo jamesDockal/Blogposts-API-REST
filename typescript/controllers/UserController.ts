@@ -94,7 +94,13 @@ class UserController {
     const secretKey = process.env.SECRET_KEY || "some_secret_key";
     const token = await sign(user.id, secretKey);
 
-    res.status(200).json({ token, id: user.id });
+    res.status(200).json({
+      token,
+      user: {
+        username: user.username,
+        id: user.id,
+      },
+    });
   }
   teste(req: Request, res: Response) {
     return res.send("ok");

@@ -3,26 +3,7 @@
 An REST API to create blog posts. <br>
 Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 
-> ## Getting Started
->
-> > ### Installing The Dependencies
-> >
-> >     npm install
->
-> > ### Run The Migrations
-> >
-> >     npm run typeorm migration:run
-> >
-> > ### Run The Localhost Server
-> >
-> >     npm start
-> >
-> > The default port is `3000`. <br>
-> > To change it go to `.env` and create the variable `PORT` and > add the port that you want.
-
-> ## Run The Tests
->
->     npm test
+## `API URL`: https://blog-post-api-rest.herokuapp.com/
 
 > ## Routes
 >
@@ -80,6 +61,7 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > > ```
 > >
 > > ##### POST `user/login` <br>
+> >
 > > To get logged to use other `routes`, <br>
 > > you need to use the `header` with the name `authorization`, <br>
 > > And use the value as `Bearer {token}`. <br>
@@ -88,8 +70,7 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > > |--------------------|--------|-------- |
 > > | `username` | string |True |
 > > | `password` | string |True |
-> > 
-> > 
+> >
 > > ##### Example:
 > >
 > > ```json
@@ -219,4 +200,26 @@ Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.
 > > }
 > > ```
 
+> ## Getting Started
+>
+> If you want to clone the repository
+>
+> > ### Installing The Dependencies
+> >
+> >     npm install
+>
+> > ### Run The Migrations
+> >
+> >     npm run typeorm migration:run
+> >
+> > ### Run The Localhost Server
+> >
+> >     npm start
+> >
+> > Run the server.js. <br>
+> > The default port is `3000`. <br>
+> > To change it go to `.env` and create the variable `PORT` and > add the port that you want.
 
+> ## Run The Tests
+>
+>     npm test

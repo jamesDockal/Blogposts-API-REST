@@ -145,7 +145,13 @@ var UserController = /** @class */ (function () {
                         return [4 /*yield*/, jsonwebtoken_1.sign(user.id, secretKey)];
                     case 2:
                         token = _a.sent();
-                        res.status(200).json({ token: token, id: user.id });
+                        res.status(200).json({
+                            token: token,
+                            user: {
+                                username: user.username,
+                                id: user.id,
+                            },
+                        });
                         return [2 /*return*/];
                 }
             });
