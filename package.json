@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "An REST API to create blog posts. <br>\r Using `express`, `typescript` and `typeorm` with a `sqlite` `database`.",
   "main": "index.js",
+  "engines": {
+    "node": "14.17.3"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node src/server.js",
