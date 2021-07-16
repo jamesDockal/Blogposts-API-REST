@@ -6,8 +6,8 @@ import cors from "cors";
 import "./database";
 
 // library to doc the api
-// import swaggerUI from "swagger-ui-express";
-// import swaggerDocs from "./swagger.json";
+import swaggerUI from "swagger-ui-express";
+import swaggerDocs from "./swagger.json";
 
 // routes file
 import UserRoutes from "./Routes/userRoutes";
@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 // documentation of the api
-// app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // user's routes
 app.use("/user", UserRoutes);
