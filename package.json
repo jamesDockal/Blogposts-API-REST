@@ -13,7 +13,9 @@
     "start:dev": "tsnd --transpile-only --ignore-watch __tests__ --ignore-watch node_modules --respawn typescript/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "prepare": "husky install",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc"
   },
   "author": "",
   "license": "ISC",
