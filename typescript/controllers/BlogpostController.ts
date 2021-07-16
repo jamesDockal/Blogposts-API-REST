@@ -204,11 +204,11 @@ class BlogpostController {
         });
 
         // retriving the new update post
-        const updatePost = await blogpost.findOne({
+        const updatedPost = await blogpost.findOne({
           id,
         });
 
-        return res.json({ updatePost });
+        return res.json({ updatedPost });
       }
     } catch (e) {
       // if the user is tring to change the title for one that alredy exists

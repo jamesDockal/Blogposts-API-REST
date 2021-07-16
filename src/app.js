@@ -14,9 +14,6 @@ var app = express_1.default();
 app.use(cors_1.default());
 // code to the express can ready json on the body
 app.use(express_1.default.json());
-app.get("/", function (req, res) {
-    return res.send("ok");
-});
 // user's routes
 app.use("/user", userRoutes_1.default);
 // blogpost' routes

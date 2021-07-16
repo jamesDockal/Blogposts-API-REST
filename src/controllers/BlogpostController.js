@@ -177,7 +177,7 @@ var BlogpostController = /** @class */ (function () {
     };
     BlogpostController.prototype.updatePost = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, title, content, blogpost, post, slug, updatePost, slug, updatePost, updatePost, e_3;
+            var id, _a, title, content, blogpost, post, slug, updatePost, slug, updatePost, updatedPost, e_3;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -256,8 +256,8 @@ var BlogpostController = /** @class */ (function () {
                                 id: id,
                             })];
                     case 11:
-                        updatePost = _b.sent();
-                        return [2 /*return*/, res.json({ updatePost: updatePost })];
+                        updatedPost = _b.sent();
+                        return [2 /*return*/, res.json({ updatedPost: updatedPost })];
                     case 12: return [3 /*break*/, 14];
                     case 13:
                         e_3 = _b.sent();
