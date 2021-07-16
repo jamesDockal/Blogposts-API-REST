@@ -21,7 +21,8 @@ app.use(cors());
 app.use(express.json());
 
 // documentation of the api
-app.get("/", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+app.use("/", swaggerUI.serve);
+app.get("/", swaggerUI.setup(swaggerDocs));
 
 // user's routes
 app.use("/user", UserRoutes);

@@ -18,7 +18,9 @@ app.use(cors_1.default());
 // code to the express can ready json on the body
 app.use(express_1.default.json());
 // documentation of the api
-app.get("/", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
+app.use("/", swagger_ui_express_1.default.serve);
+app.get("/", swagger_ui_express_1.default.setup(swagger_json_1.default));
+// app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 // user's routes
 app.use("/user", userRoutes_1.default);
 // blogpost' routes
