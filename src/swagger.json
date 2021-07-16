@@ -98,6 +98,10 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/User"
+                            },
+                            "example": {
+                                "username": "james",
+                                "password": "hard_password"
                             }
                         }
                     }
