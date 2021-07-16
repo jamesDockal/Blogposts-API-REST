@@ -8,7 +8,6 @@
   },
   "scripts": {
     "build": "tsc",
-    "prestart": "npm run build",
     "start": "node src/server.js",
     "start:dev": "tsnd --transpile-only --ignore-watch __tests__ --ignore-watch node_modules --respawn typescript/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
